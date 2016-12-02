@@ -190,6 +190,7 @@ def print_result():
 #実行
 def run(api, woeid):
     try:
+        start_time=time.time()
         global trend_tag_list, total_result, count
 
         if count<=96:
@@ -202,9 +203,11 @@ def run(api, woeid):
         for i in trend_tag_list:
             get_tweets(api,i)
         print_result()
+        finish_time=time.time()
         canvas.pack()
         canvas.update()
         root.quit()
+        return int(finish_time-start_time)
         #t=threading.Timer(900,run,[api,woeid])
         #t.start()
     except tweepy.error.TweepError:
@@ -231,14 +234,12 @@ def main():
     else:
         woeid = 23424856
     while True:
-        start_time=time.time()
-        run(api,woeid)
+        process_time=run(api,woeid)
         if count==check_count:
             saveImage()
             count=0
             break
-        finish_time=time.time()
-        time.sleep(interval-int(finish_time-start_time))
+        time.sleep(interval-process_time)
 
     #t=threading.Thread(target=run,args=(api, woeid))
     #t.start()
