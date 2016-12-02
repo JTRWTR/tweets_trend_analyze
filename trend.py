@@ -33,6 +33,7 @@ totalAVE=0
 score=0
 number=0
 count=0
+num_of_times=0
 ##########################################
 tweet_count=100 #100
 check_count=96 #96
@@ -170,7 +171,7 @@ def draw(x,y,porn):
 def print_result():
     global trend_tag_list, total_result
     f = open('result.txt', 'a')
-    f.write(time.ctime())
+    f.write("【"+num_of_times+":"+time.ctime()+"】")
     f.write("\n")
     for i in range(len(total_result)):
         if(float(total_result[i])>=-0.339941):
@@ -223,7 +224,7 @@ def saveImage():
 #INTERVAL_SEC_LOOP=60
 #@wrap_loop_thread(INTERVAL_SEC_LOOP)
 def main():
-    global count
+    global count, num_of_times
 
     input_word_emotion()
 
@@ -234,6 +235,7 @@ def main():
     else:
         woeid = 23424856
     while True:
+        num_of_times=num_of_times+1
         process_time=run(api,woeid)
         if count==check_count:
             saveImage()
