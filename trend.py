@@ -171,7 +171,7 @@ def draw(x,y,porn):
 def print_result():
     global trend_tag_list, total_result
     f = open('result.txt', 'a')
-    f.write("【"+num_of_times+":"+time.ctime()+"】")
+    f.write("【"+str(num_of_times)+":"+time.ctime()+"】")
     f.write("\n")
     for i in range(len(total_result)):
         if(float(total_result[i])>=-0.339941):
@@ -241,7 +241,8 @@ def main():
             saveImage()
             count=0
             break
-        time.sleep(interval-process_time)
+        if pricess_time<900 :
+            time.sleep(interval-process_time)
 
     #t=threading.Thread(target=run,args=(api, woeid))
     #t.start()
