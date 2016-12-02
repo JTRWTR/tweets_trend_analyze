@@ -231,12 +231,14 @@ def main():
     else:
         woeid = 23424856
     while True:
+        start_time=time.time()
         run(api,woeid)
         if count==check_count:
             saveImage()
             count=0
             break
-        time.sleep(interval)
+        finish_time=time.time()
+        time.sleep(interval-int(finish_time-start_time))
 
     #t=threading.Thread(target=run,args=(api, woeid))
     #t.start()
