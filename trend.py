@@ -169,7 +169,7 @@ def draw(x,y,porn):
 #各トレンドのAVGから点の座標を計算
 def print_result():
     global trend_tag_list, total_result
-    f = open('result.txt', 'w')
+    f = open('result.txt', 'a')
     f.write(time.ctime())
     f.write("\n")
     for i in range(len(total_result)):
