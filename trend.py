@@ -169,15 +169,23 @@ def draw(x,y,porn):
 #各トレンドのAVGから点の座標を計算
 def print_result():
     global trend_tag_list, total_result
+    f = open('result.txt', 'w')
+    f.write(time.ctime())
+    f.write("\n")
     for i in range(len(total_result)):
         if(float(total_result[i])>=-0.339941):
-            print(trend_tag_list[i]["name"]+":"+str(total_result[i])+">[POSITIVE]")
+            r=trend_tag_list[i]["name"]+":"+str(total_result[i])+">[POSITIVE]"
             y=250-(total_result[i]+0.339941)*186
             draw(count*5,y,"p")
         else:
-            print(trend_tag_list[i]["name"]+":"+str(total_result[i])+">[NEGATIVE]")
+            r=trend_tag_list[i]["name"]+":"+str(total_result[i])+">[NEGATIVE]"
             y=250-(total_result[i]+0.339941)*378
             draw(count*5,y,"n")
+        print(r)
+        f.write(r)
+        f.write("\n")
+    f.write("\n")
+    f.close()
 ##########################################################################
 #実行
 def run(api, woeid):
