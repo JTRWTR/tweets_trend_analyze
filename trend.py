@@ -120,7 +120,7 @@ def get_tweets(api,tag):
     print("-------------------------")
     print("-------------------------")
     print('【ハッシュタグ   ：  '+tag["name"]+'】')
-    search_results = api.search(q=tag["name"], count=tweet_count)
+    search_results = api.search(q=tag["name"]+" -rt", count=tweet_count)
     print("-------------------------")
     print("-------------------------")
     for i in search_results:
@@ -233,7 +233,7 @@ def main():
     if len(sys.argv) >= 2:
         woeid = int(sys.argv[1])
     else:
-        woeid = 23424856
+        woeid = 23424856 #日本
     while True:
         num_of_times=num_of_times+1
         process_time=run(api,woeid)
