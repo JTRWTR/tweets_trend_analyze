@@ -37,7 +37,7 @@ num_of_times=0
 ##########################################
 tweet_count=100 #100
 check_count=96 #96
-interval=900 #900
+interval=960 #900
 ##########################################
 trend_tag_list=[]
 nouns, verbs, adjs, advs = [], [], [], []
@@ -241,7 +241,7 @@ def main():
             saveImage()
             count=0
             break
-        if pricess_time<900 :
+        if process_time<900 :
             time.sleep(interval-process_time)
 
     #t=threading.Thread(target=run,args=(api, woeid))
