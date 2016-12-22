@@ -4,6 +4,7 @@
 import tweepy
 import sys
 import time
+import datetime
 from janome.tokenizer import Tokenizer
 import tkinter
 import functools,threading
@@ -34,10 +35,11 @@ score=0
 number=0
 count=0
 num_of_times=0
+date=datetime.date.today().day
 ##########################################
 tweet_count=100 #100
 check_count=96 #96
-interval=960 #900
+interval=1020 #900
 ##########################################
 trend_tag_list=[]
 nouns, verbs, adjs, advs = [], [], [], []
@@ -216,15 +218,15 @@ def run(api, woeid):
         exit()
 ##########################################################################
 #結果を画像で保存
-def saveImage():
-	canvas.postscript(file = 'tweet_pn_result.ps')
+def saveImage(date):
+	canvas.postscript(file = 'tweet_pn_result_'+str(date)+'.ps')
 ##########################################################################
 
 #INTERVAL_SEC_LOOP=900
 #INTERVAL_SEC_LOOP=60
 #@wrap_loop_thread(INTERVAL_SEC_LOOP)
 def main():
-    global count, num_of_times
+    global count, num_of_times, date
 
     input_word_emotion()
 
@@ -235,13 +237,27 @@ def main():
     else:
         woeid = 23424856 #日本
     while True:
+        if date != datetime.date.today().day:
+            saveImage(date)
+            date=datetime.date.today().day
+            count=0
+            num_of_times=0
+            canvas.delete("all")
         num_of_times=num_of_times+1
         process_time=run(api,woeid)
-        if count==check_count:
-            saveImage()
+        #if date != datetime.date.today().day:
+        if date != 24:
+            saveImage(date)
+            date=datetime.date.today().day
             count=0
-            break
-        if process_time<900 :
+            num_of_times=0
+            if process_time<interval :
+                time.sleep(interval-process_time)
+                canvas.delete("all")
+                canvas.pack()
+                continue
+            #break
+        if process_time<interval :
             time.sleep(interval-process_time)
 
     #t=threading.Thread(target=run,args=(api, woeid))
